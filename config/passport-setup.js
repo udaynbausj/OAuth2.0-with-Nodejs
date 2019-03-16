@@ -16,10 +16,24 @@ passport.use(
             username : profile.displayName,
             googleId : profile.id
         });
-        googleProfile.save().then( (resolvedResult) =>{
-            console.log("Successfuly saved to DB");
+
+        //to avoid same records in db....lets have a check
+        googleProfile.findOne({
+            googleId : profile.id
+        }).then( (resolvedResult) => {
+            if(resolvedResult ){
+                console.log("User profile already exists");
+            }else {
+                googleProfile.save().then( (resolvedResult) =>{
+                    console.log("Successfuly saved to DB");
+                }, (err) => {
+                    console.log("Error occured in saving to DB");
+                });
+            }
         }, (err) => {
-            console.log("Error occured in saving to DB");
+            console.log("Error in saving user profile to DB");
         });
+
+
     })
 );
