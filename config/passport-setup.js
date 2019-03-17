@@ -18,7 +18,7 @@ passport.use(
         });
 
         //to avoid same records in db....lets have a check
-        googleProfile.findOne({
+        UserModel.findOne({
             googleId : profile.id
         }).then( (resolvedResult) => {
             if(resolvedResult ){
