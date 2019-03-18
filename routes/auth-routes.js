@@ -22,9 +22,10 @@ router.get('/logout',(req,res) =>{
 
 //auth redirect url
 router.get('/google/redirect',passport.authenticate('google'),(req,res) => {
-    console.log(req);
+    console.log(req.user);
     res.send({
-        'status' : 'success'
+        'status' : 'success',
+        'UserInfo' : req.user
     })
 });
 
